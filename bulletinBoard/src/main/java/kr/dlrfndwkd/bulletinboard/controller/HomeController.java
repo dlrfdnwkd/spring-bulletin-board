@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.dlrfdnwkd.bulletinboard.model.User;
 import kr.dlrfdnwkd.bulletinboard.service.UserService;
 
 /**
@@ -43,9 +48,25 @@ public class HomeController {
 		
 		return "home";
 	}
-	@RequestMapping(value= "/loginPage", method = RequestMethod.GET)
+	@RequestMapping(value= "/loginPage")
 	public String loginPage() {
 		return "loginPage";
 	}
-	
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@ResponseBody
+	public String login(@RequestParam("userId") String id,@RequestParam("userPw") String pw,Model model,HttpSession session) {
+		User user = userService.login(id,pw);
+		if(user == null) {
+			return "none";
+		}
+		else {
+			if(user.getPw() == null) {
+				return "fail";
+			}else {
+				session.setAttribute("user", user);
+				session.setAttribute("name",user.getName());
+				return "success";
+			}
+		}
+	}
 }
