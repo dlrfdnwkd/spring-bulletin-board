@@ -6,7 +6,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Landing Page - Start Bootstrap Theme</title>
+		<title>Main Page</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,9 +25,13 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-light bg-light static-top">
 			<div class="container">
-				<a class="navbar-brand" href="#">Start Bootstrap</a>
+				<a class="navbar-brand" href="/">Bulletin Board</a>
 				<c:choose>
-					<c:when test="${sessionScope.user ne null}"><a class="btn btn-primary" id="logoutBtn" href="/logout">Log out</a></c:when>
+					<c:when test="${sessionScope.user ne null}">
+						<a class="navbar-brand">${sessionScope.user.name }님</a>
+						<a class="btn btn-primary" id="logoutBtn" href="/session/logout">Log out</a>
+						<a class="btn btn-primary" id="updateBtn" href="/myPage">정보 수정</a>
+					</c:when>
 					<c:otherwise><a class="btn btn-primary" id="loginBtn" href="/loginPage">Sign In</a></c:otherwise>
 				</c:choose>
  			</div>
@@ -224,6 +228,9 @@
   		<!-- Bootstrap core JavaScript -->
   		<script src="/resources/vendor/jquery/jquery.min.js"></script>
   		<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  		<script type="text/javascript">
+  			$("#logoutBtn").css("float","right");
+  		</script>
 
 	</body>
 </html>

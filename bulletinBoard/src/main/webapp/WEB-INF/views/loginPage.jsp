@@ -5,7 +5,8 @@
 		<title>LOGIN</title>
 		<link rel="stylesheet" href="/resources/css/login-page.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
-		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<!-- Bootstrap core JavaScript -->
+  		<script src="/resources/vendor/jquery/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="login-form">
@@ -13,7 +14,7 @@
 			<form id=loginForm method="post">
 				<input type="text" name="userId" id="userId" class="text-field" placeholder="아이디"> 
 				<input type="password" name="userPw" id="userPw" class="text-field" placeholder="비밀번호">
-				<input type="button" id="loginBtn" class="login-btn">
+				<input type="button" id="loginBtn" class="login-btn" value="로그인">
 			</form>
 		</div>
 		
@@ -28,7 +29,7 @@
 					if(!pw){
 						alert('비밀번호를 입력해주세요');
 					}else $.ajax({
-						url: "/login",
+						url: "/session/login",
 						type: "post",
 						data: $("#loginForm").serialize(),
 						success: function(data){
@@ -47,9 +48,5 @@
 			});
 		});
 		</script>
-		<!-- Bootstrap core JavaScript -->
-  		<script src="/resources/vendor/jquery/jquery.min.js"></script>
-  		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-
 	</body>
 </html>
