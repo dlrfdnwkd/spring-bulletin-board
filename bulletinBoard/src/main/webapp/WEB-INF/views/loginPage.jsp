@@ -40,7 +40,6 @@
 							default: alert('다시 시도해주세요'); break;
 							}
 						}, error: function(data, status, error){
-							console.log("실패");
 							alert("code : " + data.status + "\n" + "message : "+ data.responseText + "\n" + "error :" + error);
 						}
 					});

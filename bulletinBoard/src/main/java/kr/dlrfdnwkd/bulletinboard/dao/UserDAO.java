@@ -25,7 +25,7 @@ public class UserDAO {
 	
 	public User login(String id) {
 		String query = "select * from user where id ='"+id+"';";
-		User user = new User();
+		User user = null;
 		try {
 			user = jdbcTemplate.queryForObject(query, new RowMapper<User>() {
 				@Override
@@ -43,5 +43,27 @@ public class UserDAO {
 			return user;
 		}
 		return user;
+	}
+	public boolean userIdCheck(String id) {
+		String query = "select * from user where id ='"+id+"';";
+		try {
+			User user = jdbcTemplate.queryForObject(query, new RowMapper<User>() {
+				@Override
+				public User mapRow(ResultSet rs, int rowNum) throws SQLException{
+					User SampleUser = new User();
+					SampleUser.setId(rs.getString("id"));
+					SampleUser.setPw(rs.getString("pw"));
+					SampleUser.setName(rs.getString("name"));
+					SampleUser.seteMail(rs.getString("email"));
+					return SampleUser;
+				}
+			});
+		}catch(EmptyResultDataAccessException e) {
+			return true;
+		}
+		return false;
+	}
+	public int updateUserInfo(User user) {
+		return jdbcTemplate.update("update user set id=?, name=?, pw=? where email=?", user.getId(), user.getName(), user.getPw(), user.geteMail());
 	}
 }

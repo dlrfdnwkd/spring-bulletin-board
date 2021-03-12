@@ -26,7 +26,7 @@ public class SessionController {
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	@ResponseBody
-	public String login(@RequestParam("userId") String id,@RequestParam("userPw") String pw,Model model,HttpSession session) {
+	public String login(@RequestParam("userId") String id,@RequestParam("userPw") String pw,HttpSession session) {
 		User user = userService.login(id,pw);
 		if(user == null) {
 			return "none";
@@ -36,7 +36,6 @@ public class SessionController {
 				return "fail";
 			}else {
 				session.setAttribute("user", user);
-				session.setAttribute("name",user.getName());
 				return "success";
 			}
 		}

@@ -27,7 +27,12 @@ public class UserService {
 				user.setPw(null);
 				return user;
 			}
-		}
-			
+		}	
+	}
+	public boolean userIdCheck(String id) {
+		return userDAO.userIdCheck(id);
+	}
+	public int updateUserInfo(User user) {
+		return userDAO.updateUserInfo(user);
 	}
 }
