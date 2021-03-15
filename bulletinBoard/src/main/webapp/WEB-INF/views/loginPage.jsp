@@ -16,6 +16,7 @@
 				<input type="password" name="userPw" id="userPw" class="text-field" placeholder="비밀번호">
 				<input type="button" id="loginBtn" class="login-btn" value="로그인">
 			</form>
+			<button type="button" name="signupBtn" id="signupBtn" class="login-btn" onclick="location.href = '/signupPage'">회원가입하기</button>
 		</div>
 		
 		<script>

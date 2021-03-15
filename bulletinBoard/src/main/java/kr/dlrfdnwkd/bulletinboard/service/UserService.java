@@ -32,7 +32,19 @@ public class UserService {
 	public boolean userIdCheck(String id) {
 		return userDAO.userIdCheck(id);
 	}
+	public boolean userEmailCheck(String email) {
+		return userDAO.userEmailCheck(email);
+	}
 	public int updateUserInfo(User user) {
 		return userDAO.updateUserInfo(user);
+	}
+	public int deleteUserInfo(User user) {
+		return userDAO.deleteUserInfo(user);
+	}
+	public int signupUser(String email, String id, String pw) {
+		return userDAO.insertUserInfo(email, id, pw);
+	}
+	public int signupUser(String email, String id, String pw, String name) {
+		return userDAO.insertUserInfo(email, id, pw, name);
 	}
 }

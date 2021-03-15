@@ -43,4 +43,8 @@ public class ViewController {
 	public String updatePage() {
 		return "myPage";
 	}
+	@RequestMapping(value = "/signupPage")
+	public String signupPage() {
+		return "signupPage";
+	}
 }

@@ -22,6 +22,15 @@ public class UserController {
 		this.userService = userService;
 	}
 	
+	@RequestMapping(value = "/userEmailCheck")
+	@ResponseBody
+	public String userEmailCheck(@RequestParam("userEmail") String email) {
+		if(userService.userEmailCheck(email)) {
+			return "none";
+		}else {
+			return "exist";
+		}
+	}
 	@RequestMapping(value = "/userIdCheck")
 	@ResponseBody
 	public String userIdCheck(@RequestParam("userId") String id) {
@@ -52,5 +61,32 @@ public class UserController {
 			return "fail";
 		}
 		return "success";
+	}
+	@RequestMapping(value = "/deleteUserInfo")
+	@ResponseBody
+	public String deleteUserInfo(HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if(userService.deleteUserInfo(user) == 0) {
+			return "fail";
+		}
+		return "success";
+	}
+	@RequestMapping(value = "/signupUser")
+	@ResponseBody
+	public String signupUser(@RequestParam("userEmail") String email, @RequestParam("userId") String id, @RequestParam("userPw") String pw,
+			@RequestParam("userName") String name) {
+		if(name.isEmpty()) {
+			if(userService.signupUser(email, id, pw) == 0) {
+				return "fail";
+			} else {
+				return "success";
+			}
+		} else {
+			if(userService.signupUser(email, id, pw, name) == 0) {
+				return "fail";
+			} else {
+				return "success";
+			}
+		}
 	}
 }

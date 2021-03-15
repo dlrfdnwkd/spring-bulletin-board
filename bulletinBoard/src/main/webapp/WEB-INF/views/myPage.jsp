@@ -30,6 +30,7 @@
 				pw<input type="password" name="userPw" id="userPw" class="text-field"> 
 				<input type="button" id="updateBtn" class="login-btn" value="수정하기">
 			</form>
+			<button type="button" name="deleteBtn" id="deleteBtn" class="login-btn">탈퇴하기</button>
 		</div>
 		<script type="text/javascript">
 				$("#userIdCheck").click(function(){
@@ -77,6 +78,26 @@
 								}
 							}, error: function(data, status, error){
 								alert("code : " + data.status + "\n" + "message : "+ data.responseText + "\n" + "error :" + error);
+							}
+						});
+					}
+				});
+				$("#deleteBtn").click(function(){
+					var deleteConfirm = confirm("탈퇴하시겠습니까?");
+					if(deleteConfirm){
+						console.log("탈퇴실행");
+						$.ajax({
+							url: "/user/deleteUserInfo",
+							type: "post",
+							success: function(data){
+								if(data == 'success'){
+									alert("탈퇴처리되었습니다");
+									location.href = "/";
+								} else{
+									alert("다시 시도해주세요");
+								}
+							}, error: function(data,status,error){
+								alert("code : "+data.status+"\n message : "+data.responseText+"\n error : "+error);
 							}
 						});
 					}

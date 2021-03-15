@@ -63,7 +63,35 @@ public class UserDAO {
 		}
 		return false;
 	}
+	public boolean userEmailCheck(String email) {
+		String query = "select * from user where email ='"+email+"';";
+		try {
+			User user = jdbcTemplate.queryForObject(query, new RowMapper<User>() {
+				@Override
+				public User mapRow(ResultSet rs, int rowNum) throws SQLException{
+					User SampleUser = new User();
+					SampleUser.setId(rs.getString("id"));
+					SampleUser.setPw(rs.getString("pw"));
+					SampleUser.setName(rs.getString("name"));
+					SampleUser.seteMail(rs.getString("email"));
+					return SampleUser;
+				}
+			});
+		}catch(EmptyResultDataAccessException e) {
+			return true;
+		}
+		return false;
+	}
 	public int updateUserInfo(User user) {
 		return jdbcTemplate.update("update user set id=?, name=?, pw=? where email=?", user.getId(), user.getName(), user.getPw(), user.geteMail());
+	}
+	public int deleteUserInfo(User user) {
+		return jdbcTemplate.update("delete from user where email=?",user.geteMail());
+	}
+	public int insertUserInfo(String email, String id, String pw) {
+		return jdbcTemplate.update("insert into user(email,id,pw) values(?,?,?)",email,id,pw);
+	}
+	public int insertUserInfo(String email, String id, String pw, String name) {
+		return jdbcTemplate.update("insert into user values(?,?,?,?)",id,pw,name,email);
 	}
 }
